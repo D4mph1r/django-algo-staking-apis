@@ -10,7 +10,20 @@ class nftsSerializer(serializers.ModelSerializer):
 
 
 class nftsTransactionsSerializer(serializers.ModelSerializer):
-
+    Uri  = serializers.SerializerMethodField(method_name="get_uri")
+    
+    def get_uri(self, obj):
+        return models.Nfts.objects.filter(assetId = obj.assetId).values("Uri")[0]["Uri"]
     class Meta:
         model = models.NftsTransactions
-        fields = "__all__"
+        fields = (
+            "appId",
+            "txId",
+            "assetId",
+            "address",
+            "timeStamp",
+            "isClaimed",
+            "stakeId",
+            "CD",
+            "Uri"
+        )

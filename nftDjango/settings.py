@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +21,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-mf05q_s3+-odpmxwn1^1nq9wjtwi__wa=i2jv69^3ithaddt5s"
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-mf05q_s3+-odpmxwn1^1nq9wjtwi__wa=i2jv69^3ithaddt5s")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.environ.get('DEBUG'):
+    DEBUG = os.environ.get('DEBUG') == "True"
+else:
+    DEBUG = True
 
-ALLOWED_HOSTS = []
+if os.environ.get('ALLOWED_HOSTS'):
+    ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS")]
+else:
+    ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -82,13 +89,14 @@ WSGI_APPLICATION = "nftDjango.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "nftdistribution",
-        'USER': 'root',
-        'PASSWORD': 'd1234567',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        "NAME": os.environ.get("DB_NAME", "nftdistribution"),
+        'USER': os.environ.get("DB_USER", 'root'),
+        'PASSWORD': os.environ.get("DB_PASSWORD", 'd1234567'),
+        'HOST': os.environ.get("DB_HOST", '127.0.0.1'),
+        'PORT': os.environ.get("DB_PORT", '3306'),
     }
 }
+
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
@@ -134,3 +142,24 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+ALGOD_TOKEN = os.environ.get('ALGOD_TOKEN', "e5b7d342b8a742be5e213540669b611bfd67465b754e7353eca8fd19b1efcffd")
+ALGOD_ADDRESS = os.environ.get('ALGOD_ADDRESS', "https://algorand-node.xp.network")
+MNEMONIC = os.environ.get('MNEMONIC', "primary genius range tired garlic spin ignore face fossil burden motion wedding siren ritual mouse witness wedding obscure card edit exile bird ramp able ranch")
+
+
+""" 
+    *** CUSTOM ENV VARS ***
+            SECRET_KEY
+            DEBUG
+            ALLOWED_HOSTS
+            DB_NAME
+            DB_USER
+            DB_PASSWORD
+            DB_HOST
+            DB_PORT
+            ALGOD_TOKEN
+            ALGOD_ADDRESS
+            MNEMONIC
+"""

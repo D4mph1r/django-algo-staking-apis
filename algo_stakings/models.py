@@ -15,9 +15,9 @@ class Nfts(models.Model):
 
 class NftsTransactions(models.Model):
     appId = models.IntegerField()
-    txId = models.CharField(max_length=255)
+    txId = models.CharField(max_length=500)
     assetId = models.IntegerField()
-    address = models.CharField(max_length=255)
+    address = models.CharField(max_length=500)
     timeStamp = models.IntegerField()
     isClaimed = models.BooleanField()
     stakeId = models.IntegerField()

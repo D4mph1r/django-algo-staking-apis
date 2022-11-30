@@ -1,3 +1,4 @@
+from django.forms import CharField, IntegerField
 import django_filters.rest_framework
 from django.shortcuts import render
 from rest_framework import generics
@@ -14,12 +15,12 @@ from algosdk.future import transaction
 from pyteal import abi
 import base64
 import os
+from django.db.models import OuterRef, Subquery, Value
+from django.db.models.functions import Concat
 
 
 class NftsView(generics.ListAPIView):
     serializer_class = serializers.nftsSerializer
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-    filterset_fields = "__all__"
 
     def get_queryset(self):
         all_nfts_transactions = models.NftsTransactions.objects.filter(
@@ -29,13 +30,10 @@ class NftsView(generics.ListAPIView):
 
 class NftsTransactionsView(generics.ListAPIView):
     serializer_class = serializers.nftsTransactionsSerializer
-    queryset = models.NftsTransactions.objects.all()
 
     def get_queryset(self):
-
-        all_nfts = models.Nfts.objects.all().values_list("assetId", "Uri")
-
-        return models.NftsTransactions.objects.filter(address=self.kwargs["address"])
+        query = models.NftsTransactions.objects.filter(address=self.kwargs["address"])
+        return query
 
 
 class EarnedView(generics.GenericAPIView):
