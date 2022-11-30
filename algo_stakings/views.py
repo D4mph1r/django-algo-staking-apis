@@ -1,22 +1,12 @@
-from django.forms import CharField, IntegerField
-import django_filters.rest_framework
-from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
-from algo_stakings.models import NftsTransactions
 from django.core import serializers
 from algo_stakings import serializers, models, utils
 # Create your views here.
-import json
-from beaker import sandbox
-from algosdk.abi import ABIType
 from algosdk import mnemonic
 from algosdk.future import transaction
-from pyteal import abi
 import base64
-import os
-from django.db.models import OuterRef, Subquery, Value
-from django.db.models.functions import Concat
+from nftDjango.settings import MNEMONIC
 
 
 class NftsView(generics.ListAPIView):
@@ -32,7 +22,8 @@ class NftsTransactionsView(generics.ListAPIView):
     serializer_class = serializers.nftsTransactionsSerializer
 
     def get_queryset(self):
-        query = models.NftsTransactions.objects.filter(address=self.kwargs["address"])
+        query = models.NftsTransactions.objects.filter(
+            address=self.kwargs["address"])
         return query
 
 
@@ -139,7 +130,7 @@ class TransferAsset(generics.UpdateAPIView):
                 sp.flat_fee = True
                 sp.fee = 1_000
 
-                adminMnemonic = "primary genius range tired garlic spin ignore face fossil burden motion wedding siren ritual mouse witness wedding obscure card edit exile bird ramp able ranch"
+                adminMnemonic = MNEMONIC
                 privateKey = mnemonic.to_private_key(adminMnemonic)
                 adminAddress = mnemonic.to_public_key(adminMnemonic)
 

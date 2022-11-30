@@ -1,6 +1,7 @@
 from beaker import sandbox
 from algosdk.abi import ABIType
 from pyteal import abi
+from nftDjango.settings import ALGOD_ADDRESS, ALGOD_TOKEN
 
 LOCKTIME = {
     "7890000": 11250000,
@@ -40,6 +41,5 @@ staking_codec = ABIType.from_string(str(StakingInfo().type_spec()))
 
 
 def getAlgodClient():
-    algod_client = sandbox.get_algod_client(
-        "http://hackathon.algodev.network:9100", "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1")
+    algod_client = sandbox.get_algod_client(ALGOD_ADDRESS, ALGOD_TOKEN)
     return algod_client
