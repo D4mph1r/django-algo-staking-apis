@@ -158,4 +158,5 @@ class TransferAsset(generics.UpdateAPIView):
 
             return Response({"data": data})
         except Exception as e:
+            print('ERROR', e)
             return Response({"error": e})
