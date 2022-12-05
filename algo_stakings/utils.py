@@ -4,10 +4,10 @@ from pyteal import abi
 from nftDjango.settings import ALGOD_ADDRESS, ALGOD_TOKEN
 
 LOCKTIME = {
-    "7890000": 11250000,
-    "15780000": 37500000,
+    "7890000": 25000000,
+    "15780000": 50000000,
     "23650000": 75000000,
-    "31536000": 125000000,
+    "31536000": 100000000,
 }
 
 
