@@ -2,6 +2,7 @@ from beaker import sandbox
 from algosdk.abi import ABIType
 from pyteal import abi
 from nftDjango.settings import ALGOD_ADDRESS, ALGOD_TOKEN
+from algosdk.v2client.algod import AlgodClient
 
 LOCKTIME = {
     "7890000": 25000000,
@@ -41,5 +42,6 @@ staking_codec = ABIType.from_string(str(StakingInfo().type_spec()))
 
 
 def getAlgodClient():
-    algod_client = sandbox.get_algod_client(ALGOD_ADDRESS, ALGOD_TOKEN)
+    algod_client = AlgodClient(algod_token=ALGOD_TOKEN, algod_address=ALGOD_ADDRESS, headers={
+        "x-api-key": ALGOD_TOKEN})
     return algod_client
