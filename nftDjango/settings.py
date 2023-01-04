@@ -144,9 +144,9 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CSRF_TRUSTED_ORIGINS=[os.environ.get('CSRF_TRUSTED_ORIGINS', "https://stake-nft.xp.network")]
-ALGOD_TOKEN = os.environ.get('ALGOD_TOKEN', "e5b7d342b8a742be5e213540669b611bfd67465b754e7353eca8fd19b1efcffd")
-ALGOD_ADDRESS = os.environ.get('ALGOD_ADDRESS', "https://algorand-node.xp.network")
-MNEMONIC = os.environ.get('MNEMONIC', "primary genius range tired garlic spin ignore face fossil burden motion wedding siren ritual mouse witness wedding obscure card edit exile bird ramp able ranch")
+ALGOD_TOKEN = os.environ.get('ALGOD_TOKEN', "kZWDAxYR7Y6S6RoyfGIi28SATZ5DfTIs5pF0UMW4")
+ALGOD_ADDRESS = os.environ.get('ALGOD_ADDRESS', "https://mainnet-algorand.api.purestake.io/ps2")
+MNEMONIC = os.environ.get('MNEMONIC', "naive enhance subway scorpion cloud genuine canoe misery story drive cute pig pupil bicycle coach absent lawsuit offer kite edge oppose finish soup able soda")
 
 
 """ 

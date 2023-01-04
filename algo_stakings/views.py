@@ -101,10 +101,10 @@ class AllStakingsView(generics.ListAPIView):
                     state_decoded = utils.staking_codec.decode(
                         base64.b64decode(stored_staking))
                     txnId = models.NftsTransactions.objects.filter(address=str(address), appId=int(
-                        appId), stakeId=int(state_decoded[1])).values_list("txId")[0][0]
+                        appId), stakeId=int(state_decoded[1])).values_list("txId")
                     txId = ""
-                    if (txnId is not None):
-                        txId = txnId
+                    if (len(txnId) > 0):
+                         txId = txnId[0][0]
                     stakinglist.append(utils.stakings(appId, state_decoded[0], state_decoded[1], state_decoded[2],
                                                       state_decoded[3], state_decoded[4], state_decoded[5], state_decoded[6], txId))
                 except Exception as e:
